@@ -9,8 +9,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class LoginService {
 
-  
-
   url: string = `${HOST}/oauth/token`;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -48,7 +46,7 @@ export class LoginService {
   }
 
   cerrarSesion() {
-    let access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
     this.http.get(`${HOST}/usuarios/anular/${access_token}`).subscribe(() => {
       sessionStorage.clear();
       this.router.navigate(['login']);

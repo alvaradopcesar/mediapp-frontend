@@ -30,6 +30,7 @@ import { TokenComponent } from './login/recuperar/token/token.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { SignosvitalesComponent } from './pages/signosvitales/signosvitales.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { SignosvitalesEdicionComponent } from './pages/signosvitales/signosvitales-edicion/signosvitales-edicion.component';
 
 export function tokenGetter() {
   let tk = JSON.parse(sessionStorage.getItem(TOKEN_NAME));
@@ -59,7 +60,8 @@ export function tokenGetter() {
     RecuperarComponent,
     SignosvitalesComponent,
     TokenComponent,
-    PerfilComponent
+    PerfilComponent,
+    SignosvitalesEdicionComponent
     
   ],
   entryComponents: [DialogoComponent, DialogoDetalleComponent],

@@ -11,31 +11,30 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class SignosvitalesComponent implements OnInit {
 
-  
-  
-  
-  displayedColumns = ['idSignosVitales', 'Paciente', 'Fecha', 'Temperatura','Pulso','Ritmo Respiratorio','acciones'];
+  // displayedColumns = ['idSignosVitales', 'Paciente', 'Fecha', 'Temperatura','Pulso','Ritmo Respiratorio','acciones'];
+  displayedColumns = ['idSignosVitales', 'paciente.nombres', 'pulso', 'temperatura' , ];
   dataSource: MatTableDataSource<SignosVitales>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   cantidad: number;
 
-  constructor(private SignosvitalesService: SignosvitalesService, private snackBar: MatSnackBar) {
-
-
+  constructor(
+      private signosvitalesService: SignosvitalesService,
+      private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.listar();
 
-    this.SignosvitalesService.signosvitalesCambio.subscribe(data => {
+    this.signosvitalesService.signosvitalesCambio.subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource);
     });
 
-    this.SignosvitalesService.mensajeCambio.subscribe(data => {
+    this.signosvitalesService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'AVISO', {
         duration: 2000
       });
@@ -52,10 +51,10 @@ export class SignosvitalesComponent implements OnInit {
   }
 
   eliminar(idSignosVitales: number) {
-    this.SignosvitalesService.eliminar(idSignosVitales).subscribe(() => {
-      this.SignosvitalesService.listar().subscribe(data => {
-        this.SignosvitalesService.signosvitalesCambio.next(data);
-        this.SignosvitalesService.mensajeCambio.next('SE ELIMINÓ');
+    this.signosvitalesService.eliminar(idSignosVitales).subscribe(() => {
+      this.signosvitalesService.listar().subscribe(data => {
+        this.signosvitalesService.signosvitalesCambio.next(data);
+        this.signosvitalesService.mensajeCambio.next('SE ELIMINÓ');
       });
     });
   }
@@ -76,10 +75,11 @@ export class SignosvitalesComponent implements OnInit {
 
     if (e != null) {
       pageIndex = e.pageIndex;
-      pageSize = e.pageSize;      
+      pageSize = e.pageSize;
     }
 
-    this.SignosvitalesService.listarPageable(pageIndex, pageSize).subscribe((data: any) => {
+    this.signosvitalesService.listarPageable(pageIndex, pageSize).subscribe((data: any) => {
+      console.log(data);
       let SignosVitales = data.content;
       this.cantidad = data.totalElements;
 

@@ -9,8 +9,8 @@ import { LoginService } from 'src/app/_service/login.service';
 })
 export class PerfilComponent implements OnInit {
 
-  mensaje: string = 'Hola';
-  rol: string = '';
+  mensaje: string;
+  rol: string[] = [];
 
   constructor(private loginService: LoginService) { }
 

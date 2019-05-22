@@ -18,6 +18,7 @@ import { GuardService } from './_service/guard.service';
 import { Not401Component } from './pages/not401/not401.component';
 import { SignosvitalesComponent } from './pages/signosvitales/signosvitales.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { SignosvitalesEdicionComponent } from './pages/signosvitales/signosvitales-edicion/signosvitales-edicion.component';
 
 
 const routes: Routes = [
@@ -30,11 +31,10 @@ const routes: Routes = [
 
   {
     path: 'signosvitales', component: SignosvitalesComponent, children: [
-      { path: 'nuevo', component: PacienteEdicionComponent },
-      { path: 'edicion/:id', component: PacienteEdicionComponent }
+      { path: 'nuevo', component: SignosvitalesEdicionComponent },
+      { path: 'edicion/:id', component: SignosvitalesEdicionComponent }
     ], canActivate: [GuardService]
   },
-
 
   {
     path: 'especialidad', component: EspecialidadComponent, children: [
